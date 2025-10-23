@@ -5,9 +5,9 @@ public class Creature {
     private int hungry;
     private int stamina;
     private int thirst;
-    private int[] position;
+    private Coordinate position;
 
-    public Creature(int hp, int hungry, int stamina, int thirst, int[] position) {
+    public Creature(int hp, int hungry, int stamina, int thirst, Coordinate position) {
         this.hp = hp;
         this.hungry = hungry;
         this.stamina = stamina;
@@ -50,11 +50,11 @@ public class Creature {
         this.thirst = thirst;
     }
 
-    public int[] getPosition() {
+    public Coordinate getPosition() {
         return position;
     }
 
-    public void setPosition(int[] position) {
+    public void setPosition(Coordinate position) {
         this.position = position;
     }
 }
