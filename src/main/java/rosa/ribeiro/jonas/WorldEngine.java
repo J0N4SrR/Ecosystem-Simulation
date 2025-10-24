@@ -1,5 +1,7 @@
 package rosa.ribeiro.jonas;
 
+import rosa.ribeiro.jonas.resouces.Resource;
+
 import java.util.List;
 
 public class WorldEngine {
@@ -15,6 +17,12 @@ public class WorldEngine {
         }
         return count;
     }
+
+    public void tickTack(){
+
+    }
+
+
 
 
 
