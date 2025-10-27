@@ -1,4 +1,4 @@
-package rosa.ribeiro.jonas;
+package rosa.ribeiro.jonas.actions;
 
 public enum ActionType {
 

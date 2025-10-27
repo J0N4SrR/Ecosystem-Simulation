@@ -1,5 +1,7 @@
 package rosa.ribeiro.jonas;
 
+import rosa.ribeiro.jonas.actions.Action;
+import rosa.ribeiro.jonas.actions.UseResourceAction;
 import rosa.ribeiro.jonas.resouces.Resource;
 import rosa.ribeiro.jonas.resouces.ResourceType;
 
@@ -11,8 +13,14 @@ public class CreatureEngine {
     private Creature creature;
 
 
+
     public boolean isAlive() {
         return this.creature.getHp() > 0;
+    }
+
+    public void tickTackCreature(){
+        creature.setThirst(creature.getThirst() + 1);
+        creature.setStamina(creature.getStamina() - 1);
     }
 
     private int getWaterDuration(){
@@ -39,7 +47,7 @@ public class CreatureEngine {
         return false;
     }
 
-    public Action createUseResourceAction(List<Resource> resources){
+    private Action createUseResourceAction(List<Resource> resources){
         List<Integer> list = new ArrayList<>();
         for(Resource resource: resources){
             list.add((int)creature.getPosition().distanceTo(resource.getPosition()));
@@ -57,6 +65,14 @@ public class CreatureEngine {
         }
         return -1;
     }
+
+    //adicionar mais ações e escolher qual usar
+    public Action getAction(List<Resource> resources){
+
+        return createUseResourceAction(resources);
+    }
+
+
 
 
 

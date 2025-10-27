@@ -1,38 +1,38 @@
-package rosa.ribeiro.jonas;
+package rosa.ribeiro.jonas.actions;
 
+import rosa.ribeiro.jonas.Coordinate;
+import rosa.ribeiro.jonas.CreatureEngine;
 
-public class UseResourceAction implements Action{
+public class RestAction implements Action {
     private Coordinate coordinate;
     private int priority;
     private ActionType actionType;
     private CreatureEngine creatureEngine;
 
-    public UseResourceAction(Coordinate coordinate, int priority, CreatureEngine creatureEngine) {
+    public RestAction(Coordinate coordinate, int priority, ActionType actionType, CreatureEngine creatureEngine) {
         this.coordinate = coordinate;
         this.priority = priority;
-        this.actionType = ActionType.USE_RESOURCE;
+        this.actionType = actionType;
         this.creatureEngine = creatureEngine;
     }
 
     @Override
     public Coordinate getCoordinate() {
-        return coordinate;
+        return null;
     }
 
     @Override
     public int getActionPriority() {
-        return priority;
+        return 0;
     }
 
     @Override
     public ActionType getActionType() {
-        return actionType;
+        return null;
     }
 
     @Override
     public void execute() {
-        if(creatureEngine.move(coordinate)){
-        creatureEngine.drinkWater();
-        }
+
     }
 }

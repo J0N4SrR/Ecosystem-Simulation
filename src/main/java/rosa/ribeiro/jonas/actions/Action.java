@@ -1,8 +1,6 @@
-package rosa.ribeiro.jonas;
+package rosa.ribeiro.jonas.actions;
 
-import rosa.ribeiro.jonas.resouces.Resource;
-
-import java.util.List;
+import rosa.ribeiro.jonas.Coordinate;
 
 //implementando o padrão de projetos Command
 public interface Action {
