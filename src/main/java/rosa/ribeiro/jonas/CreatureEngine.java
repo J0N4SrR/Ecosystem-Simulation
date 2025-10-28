@@ -50,23 +50,25 @@ public class CreatureEngine {
 
     }
 
-    private Coordinate wander(){
+    public Coordinate wander(){
         Coordinate current = creature.getPosition();
         int dx = random.nextInt(3) - 1;
         int dy = random.nextInt(3) - 1;
         Coordinate next = new Coordinate(current.getX() + dx, current.getY() + dy);
-        boolean moved = move(next);
-        if(moved){
-            creature.setPosition(next);
+
+        if(hasEnergy(next)){
             return next;
         } else {
             return current;
         }
     }
 
+    public boolean hasEnergy(Coordinate newPosition){
+        return creature.getStamina() >= creature.getPosition().distanceTo(newPosition);
+    }
 
     public boolean move(Coordinate newPosition){
-        if(creature.getStamina() >= creature.getPosition().distanceTo(newPosition)){
+        if(hasEnergy(newPosition)){
             creature.setPosition(newPosition);
             creature.setStamina(Math.subtractExact(creature.getStamina(), ((int)creature.getPosition().distanceTo(newPosition))));
             return true;
@@ -89,8 +91,8 @@ public class CreatureEngine {
     }
 
     private Action createMoveAction(){
-        Coordinate c = wander();
-       return new MoveAction(c,this);
+
+       return new MoveAction(this);
     }
 
     private Action createRestAction(){

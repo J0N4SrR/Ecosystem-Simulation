@@ -9,10 +9,11 @@ public class MoveAction implements Action{
     private CreatureEngine creatureEngine;
 
 
-    public MoveAction(Coordinate coordinate, CreatureEngine creatureEngine) {
-        this.coordinate = coordinate;
+    public MoveAction(CreatureEngine creatureEngine) {
         this.actionType = ActionType.MOVE;
         this.creatureEngine = creatureEngine;
+        this.coordinate = creatureEngine.wander();
+
     }
 
     @Override
@@ -32,12 +33,11 @@ public class MoveAction implements Action{
 
     @Override
     public void execute() {
-        Coordinate c = getCoordinate();
-        if(creatureEngine.getCreature().getPosition().equals(c)){
-            System.out.println("\n " + creatureEngine.getCreature().getNickname() + " está cansado e não se moveu." + c);
+        if(creatureEngine.getCreature().getPosition().equals(getCoordinate())){
+            System.out.println("\n " + creatureEngine.getCreature().getNickname() + " está cansado e não se moveu." + getCoordinate());
         } else {
-            System.out.println("\n " + creatureEngine.getCreature().getNickname() + " moveu-se para " + c);
-
+            System.out.println("\n " + creatureEngine.getCreature().getNickname() + " moveu-se para " + getCoordinate());
+            creatureEngine.move(getCoordinate());
         }
     }
 }
