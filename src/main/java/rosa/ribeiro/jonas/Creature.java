@@ -50,7 +50,7 @@ public class Creature {
 
     public int getStamina() { return stamina;}
 
-    public int getStaminaRatio() { return (stamina/staminaMax) * 100;}
+    public int getStaminaRatio() { return (int)((stamina * 100)/staminaMax) ;}
 
     public void setStamina(int stamina) {
         this.stamina = stamina;
