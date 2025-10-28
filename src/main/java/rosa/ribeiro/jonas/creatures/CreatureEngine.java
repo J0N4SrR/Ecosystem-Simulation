@@ -1,5 +1,6 @@
-package rosa.ribeiro.jonas;
+package rosa.ribeiro.jonas.creatures;
 
+import rosa.ribeiro.jonas.world.Coordinate;
 import rosa.ribeiro.jonas.actions.Action;
 import rosa.ribeiro.jonas.actions.MoveAction;
 import rosa.ribeiro.jonas.actions.RestAction;

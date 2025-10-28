@@ -1,6 +1,6 @@
 package rosa.ribeiro.jonas.resouces;
 
-import rosa.ribeiro.jonas.Coordinate;
+import rosa.ribeiro.jonas.world.Coordinate;
 
 public class Water implements Resource{
     private Coordinate position;

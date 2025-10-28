@@ -1,6 +1,6 @@
 package rosa.ribeiro.jonas.actions;
 
-import rosa.ribeiro.jonas.Coordinate;
+import rosa.ribeiro.jonas.world.Coordinate;
 
 //implementando o padrão de projetos Command
 public interface Action {

@@ -1,7 +1,7 @@
 package rosa.ribeiro.jonas.actions;
 
-import rosa.ribeiro.jonas.Coordinate;
-import rosa.ribeiro.jonas.CreatureEngine;
+import rosa.ribeiro.jonas.world.Coordinate;
+import rosa.ribeiro.jonas.creatures.CreatureEngine;
 
 public class RestAction implements Action {
     private ActionType actionType;

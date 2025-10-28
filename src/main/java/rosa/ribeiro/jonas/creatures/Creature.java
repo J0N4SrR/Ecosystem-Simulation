@@ -1,4 +1,6 @@
-package rosa.ribeiro.jonas;
+package rosa.ribeiro.jonas.creatures;
+
+import rosa.ribeiro.jonas.world.Coordinate;
 
 public class Creature {
     private String nickname;

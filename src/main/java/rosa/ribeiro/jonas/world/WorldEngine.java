@@ -1,6 +1,7 @@
-package rosa.ribeiro.jonas;
+package rosa.ribeiro.jonas.world;
 
 import rosa.ribeiro.jonas.actions.Action;
+import rosa.ribeiro.jonas.creatures.CreatureEngine;
 import rosa.ribeiro.jonas.resouces.Resource;
 
 import java.util.ArrayList;

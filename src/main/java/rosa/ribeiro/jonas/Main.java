@@ -1,8 +1,12 @@
 package rosa.ribeiro.jonas;
 
+import rosa.ribeiro.jonas.creatures.Creature;
+import rosa.ribeiro.jonas.creatures.CreatureEngine;
 import rosa.ribeiro.jonas.resouces.Resource;
-import rosa.ribeiro.jonas.resouces.ResourceType;
 import rosa.ribeiro.jonas.resouces.Water;
+import rosa.ribeiro.jonas.world.Coordinate;
+import rosa.ribeiro.jonas.world.TimeController;
+import rosa.ribeiro.jonas.world.WorldEngine;
 
 import java.util.ArrayList;
 import java.util.List;

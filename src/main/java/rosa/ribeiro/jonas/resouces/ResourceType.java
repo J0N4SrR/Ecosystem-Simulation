@@ -2,7 +2,11 @@ package rosa.ribeiro.jonas.resouces;
 
 public enum ResourceType {
 
-    WATER("water");
+    WATER("water"),
+    PLANT ("plant"),
+    MEAT("meat"),
+    LAIR("lair");
+
 
     private String description;
 
