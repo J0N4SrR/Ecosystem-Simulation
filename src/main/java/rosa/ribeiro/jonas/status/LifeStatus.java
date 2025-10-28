@@ -2,19 +2,21 @@ package rosa.ribeiro.jonas.status;
 
 import rosa.ribeiro.jonas.world.Coordinate;
 
-public class LifeManager {
+public class LifeStatus {
 
     private int hp;
     private int hungry;
+    private final int hungryMax;
     private int stamina;
-    private int staminaMax;
+    private final int staminaMax;
     private int thirst;
-    private int thirstMax;
+    private final int thirstMax;
     private Coordinate position;
 
-    public LifeManager(int hp, int hungry, int staminaMax, int thirstMax, Coordinate position) {
+    public LifeStatus(int hp, int hungryMax, int staminaMax, int thirstMax, Coordinate position) {
         this.hp = hp;
-        this.hungry = hungry;
+        this.hungry = 0;
+        this.hungryMax = hungryMax;
         this.stamina = staminaMax;
         this.staminaMax = staminaMax;
         this.thirst = 0;
@@ -36,7 +38,7 @@ public class LifeManager {
     }
 
     public void setHungry(int hungry) {
-        this.hungry = hungry;
+        this.hungry = Math.min(hungry, hungryMax);
     }
 
     public int getStamina() { return stamina;}
@@ -44,7 +46,7 @@ public class LifeManager {
     public int getStaminaRatio() { return (int)((stamina * 100)/staminaMax) ;}
 
     public void setStamina(int stamina) {
-        this.stamina = stamina;
+        this.stamina = Math.min(stamina, staminaMax);
     }
 
     public int getThirst() {

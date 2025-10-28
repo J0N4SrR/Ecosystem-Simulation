@@ -2,19 +2,19 @@ package rosa.ribeiro.jonas.actions;
 
 
 import rosa.ribeiro.jonas.world.Coordinate;
-import rosa.ribeiro.jonas.creatures.CreatureEngine;
+import rosa.ribeiro.jonas.creatures.LifeManager;
 
-public class UseResourceAction implements Action{
+public class DrinkAction implements Action{
     private Coordinate coordinate;
     private int priority;
     private ActionType actionType;
-    private CreatureEngine creatureEngine;
+    private LifeManager lifeManager;
 
-    public UseResourceAction(Coordinate resourceCoordinate, int priority, CreatureEngine creatureEngine) {
+    public DrinkAction(Coordinate resourceCoordinate, int priority, LifeManager lifeManager) {
         this.coordinate = resourceCoordinate;
         this.priority = priority;
         this.actionType = ActionType.USE_RESOURCE;
-        this.creatureEngine = creatureEngine;
+        this.lifeManager = lifeManager;
     }
 
     @Override
@@ -34,9 +34,9 @@ public class UseResourceAction implements Action{
 
     @Override
     public void execute() {
-        if(creatureEngine.move(coordinate)){
-            creatureEngine.drinkWater();
-            System.out.println("\n" + creatureEngine.getCreature().getNickname() + "  Foi beber agua na posição: " + getCoordinate());
+        if(lifeManager.move(coordinate)){
+            lifeManager.drinkWater();
+            System.out.println("\n" + lifeManager.getCreature().getNickname() + "  Foi beber agua na posição: " + getCoordinate());
 
         }
     }

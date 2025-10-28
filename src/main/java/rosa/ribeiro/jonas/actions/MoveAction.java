@@ -1,18 +1,18 @@
 package rosa.ribeiro.jonas.actions;
 
 import rosa.ribeiro.jonas.world.Coordinate;
-import rosa.ribeiro.jonas.creatures.CreatureEngine;
+import rosa.ribeiro.jonas.creatures.LifeManager;
 
 public class MoveAction implements Action{
     private Coordinate coordinate;
     private ActionType actionType;
-    private CreatureEngine creatureEngine;
+    private LifeManager lifeManager;
 
 
-    public MoveAction(CreatureEngine creatureEngine) {
+    public MoveAction(LifeManager lifeManager) {
         this.actionType = ActionType.MOVE;
-        this.creatureEngine = creatureEngine;
-        this.coordinate = creatureEngine.wander();
+        this.lifeManager = lifeManager;
+        this.coordinate = lifeManager.wander();
 
     }
 
@@ -23,7 +23,7 @@ public class MoveAction implements Action{
 
     @Override
     public int getActionPriority() {
-        return creatureEngine.getCreature().getStamina();
+        return lifeManager.getCreature().getLifeManager().getStamina();
     }
 
     @Override
@@ -33,11 +33,11 @@ public class MoveAction implements Action{
 
     @Override
     public void execute() {
-        if(creatureEngine.getCreature().getPosition().equals(getCoordinate())){
-            System.out.println("\n " + creatureEngine.getCreature().getNickname() + " está cansado e não se moveu." + getCoordinate());
+        if(lifeManager.getCreature().getLifeManager().getPosition().equals(getCoordinate())){
+            System.out.println("\n " + lifeManager.getCreature().getNickname() + " está cansado e não se moveu." + getCoordinate());
         } else {
-            System.out.println("\n " + creatureEngine.getCreature().getNickname() + " moveu-se para " + getCoordinate());
-            creatureEngine.move(getCoordinate());
+            System.out.println("\n " + lifeManager.getCreature().getNickname() + " moveu-se para " + getCoordinate());
+            lifeManager.move(getCoordinate());
         }
     }
 }

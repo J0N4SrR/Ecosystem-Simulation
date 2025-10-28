@@ -1,7 +1,7 @@
 package rosa.ribeiro.jonas.world;
 
 import rosa.ribeiro.jonas.actions.Action;
-import rosa.ribeiro.jonas.creatures.CreatureEngine;
+import rosa.ribeiro.jonas.creatures.LifeManager;
 import rosa.ribeiro.jonas.resouces.Resource;
 
 import java.util.ArrayList;
@@ -9,17 +9,17 @@ import java.util.HashMap;
 import java.util.List;
 
 public class WorldEngine {
-    List<CreatureEngine> creatureEngines;
+    List<LifeManager> lifeManagers;
     List<Resource> resourceList;
 
-    public WorldEngine(List<CreatureEngine> creatureEngines, List<Resource> resourceList) {
-        this.creatureEngines = creatureEngines;
+    public WorldEngine(List<LifeManager> lifeManagers, List<Resource> resourceList) {
+        this.lifeManagers = lifeManagers;
         this.resourceList = resourceList;
     }
 
     private int countAliveCreatures(){
         int countAliveCreature = 0;
-        for(CreatureEngine creature: creatureEngines){
+        for(LifeManager creature: lifeManagers){
             if(creature.isAlive()){
                 countAliveCreature++;
             }
@@ -46,7 +46,7 @@ public class WorldEngine {
     public void tickTack(){
         List<Action> actionList = new ArrayList<>();
         int alive = countAliveCreatures();
-        for(CreatureEngine creature : creatureEngines){
+        for(LifeManager creature : lifeManagers){
             creature.tickTackCreature();
             actionList.add(creature.getAction(resourceList));
 

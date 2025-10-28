@@ -1,9 +1,11 @@
 package rosa.ribeiro.jonas;
 
 import rosa.ribeiro.jonas.creatures.Creature;
-import rosa.ribeiro.jonas.creatures.CreatureEngine;
+import rosa.ribeiro.jonas.creatures.CreatureCategory;
+import rosa.ribeiro.jonas.creatures.LifeManager;
 import rosa.ribeiro.jonas.resouces.Resource;
 import rosa.ribeiro.jonas.resouces.Water;
+import rosa.ribeiro.jonas.status.LifeStatus;
 import rosa.ribeiro.jonas.world.Coordinate;
 import rosa.ribeiro.jonas.world.TimeController;
 import rosa.ribeiro.jonas.world.WorldEngine;
@@ -17,28 +19,40 @@ public class Main {
     public static void main(String[] args) {
         System.out.print("Hello and welcome!\n\n");
 
-        final List<CreatureEngine> creatureEngines = new ArrayList<>();
+        final List<LifeManager> lifeManagers = new ArrayList<>();
         final List<Resource> resources = new ArrayList<>();
 
         // Testando
-        Creature grifoAlpha = new Creature("Grifo Alpha", 12, 0, 10,15, new Coordinate(0, 0));
-        Creature grifoBeta  = new Creature("Grifo Beta", 10,0, 15, 10, new Coordinate(2, 1));
-        Creature lobo       = new Creature("Lobo", 6, 0, 10, 6, new Coordinate(5, -2));
-        Creature raposa     = new Creature("Raposa", 8, 0, 6, 10, new Coordinate(-3, 1));
-        Creature cervo      = new Creature("Cervo", 9,0, 6, 8,  new Coordinate(1, -4));
+        Creature grifoAlpha = new Creature("Grifo Alpha", new LifeStatus(15, 10, 10,15, new Coordinate(0, 0)), CreatureCategory.HUNTER);
+        Creature grifoBeta  = new Creature("Grifo Beta", new LifeStatus(12,10, 15, 10, new Coordinate(2, 1)),CreatureCategory.HUNTER);
+        Creature lobo       = new Creature("Lobo", new LifeStatus(10, 15, 10, 6, new Coordinate(5, -2)), CreatureCategory.HUNTER);
+        Creature coelho     = new Creature("Coelho", new LifeStatus(4, 15, 6, 10, new Coordinate(-3, 1)),CreatureCategory.PREY);
+        Creature coelho1     = new Creature("Coelho", new LifeStatus(4, 15, 6, 10, new Coordinate(-3, 1)),CreatureCategory.PREY);
+        Creature coelho2     = new Creature("Coelho", new LifeStatus(4, 15, 6, 10, new Coordinate(-3, 1)),CreatureCategory.PREY);
+        Creature coelho3    = new Creature("Coelho", new LifeStatus(4, 15, 6, 10, new Coordinate(-3, 1)),CreatureCategory.PREY);
+        Creature coelho4     = new Creature("Coelho", new LifeStatus(4, 15, 6, 10, new Coordinate(-3, 1)),CreatureCategory.PREY);
+        Creature cervo      = new Creature("Cervo", new LifeStatus(8,10, 6, 8,  new Coordinate(1, -4)), CreatureCategory.PREY);
 
-        CreatureEngine engineGrifoAlpha = new CreatureEngine(grifoAlpha);
-        CreatureEngine engineGrifoBeta  = new CreatureEngine(grifoBeta);
-        CreatureEngine engineLobo       = new CreatureEngine(lobo);
-        CreatureEngine engineRaposa     = new CreatureEngine(raposa);
-        CreatureEngine engineCervo      = new CreatureEngine(cervo);
+        LifeManager engineGrifoAlpha = new LifeManager(grifoAlpha);
+        LifeManager engineGrifoBeta  = new LifeManager(grifoBeta);
+        LifeManager engineLobo       = new LifeManager(lobo);
+        LifeManager engineCoelho    = new LifeManager(coelho);
+        LifeManager engineCoelho1      = new LifeManager(coelho1);
+        LifeManager engineCoelho2      = new LifeManager(coelho2);
+        LifeManager engineCoelho3      = new LifeManager(coelho3);
+        LifeManager engineCoelho4      = new LifeManager(coelho4);
+        LifeManager engineCervo      = new LifeManager(cervo);
 
 
-        creatureEngines.add(engineGrifoAlpha);
-        creatureEngines.add(engineGrifoBeta);
-        creatureEngines.add(engineLobo);
-        creatureEngines.add(engineRaposa);
-        creatureEngines.add(engineCervo);
+        lifeManagers.add(engineGrifoAlpha);
+        lifeManagers.add(engineGrifoBeta);
+        lifeManagers.add(engineLobo);
+        lifeManagers.add(engineCoelho);
+        lifeManagers.add(engineCoelho1);
+        lifeManagers.add(engineCoelho2);
+        lifeManagers.add(engineCoelho3);
+        lifeManagers.add(engineCoelho4);
+        lifeManagers.add(engineCervo);
 
         Resource lago       = new Water(new Coordinate(4, 4));
         Resource riacho     = new Water(new Coordinate(-2, 3));
@@ -47,9 +61,9 @@ public class Main {
         resources.add(riacho);
         resources.add(lagoa);
 
-        WorldEngine world = new WorldEngine(creatureEngines, resources);
+        WorldEngine world = new WorldEngine(lifeManagers, resources);
         TimeController timeController = new TimeController(world);
-        List<CreatureEngine> before = creatureEngines;
+        List<LifeManager> before = lifeManagers;
         timeController.run();
 
 

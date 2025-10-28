@@ -1,26 +1,26 @@
 package rosa.ribeiro.jonas.actions;
 
 import rosa.ribeiro.jonas.world.Coordinate;
-import rosa.ribeiro.jonas.creatures.CreatureEngine;
+import rosa.ribeiro.jonas.creatures.LifeManager;
 
 public class RestAction implements Action {
     private ActionType actionType;
-    private CreatureEngine creatureEngine;
+    private LifeManager lifeManager;
 
-    public RestAction(CreatureEngine creatureEngine) {
+    public RestAction(LifeManager lifeManager) {
 
         this.actionType = ActionType.REST;
-        this.creatureEngine = creatureEngine;
+        this.lifeManager = lifeManager;
     }
 
     @Override
     public Coordinate getCoordinate() {
-        return creatureEngine.getCreature().getPosition();
+        return lifeManager.getCreature().getLifeManager().getPosition();
     }
 
     @Override
     public int getActionPriority() {
-        return creatureEngine.getCreature().getStamina();
+        return lifeManager.getCreature().getLifeManager().getStamina();
     }
 
     @Override
@@ -30,8 +30,8 @@ public class RestAction implements Action {
 
     @Override
     public void execute() {
-        creatureEngine.rest();
-        System.out.println("\n " + creatureEngine.getCreature().getNickname() + " descansou na posição: " + getCoordinate());
+        lifeManager.rest();
+        System.out.println("\n " + lifeManager.getCreature().getNickname() + " descansou na posição: " + getCoordinate());
 
     }
 }

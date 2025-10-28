@@ -19,7 +19,7 @@ public class TimeController implements Runnable{
             try {
                 Thread.sleep(1000);
                 if(count == 9){
-                    System.out.println(worldEngine.creatureEngines.toString());
+                    System.out.println(worldEngine.lifeManagers.toString());
                 }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
