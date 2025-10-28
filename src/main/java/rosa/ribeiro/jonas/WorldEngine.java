@@ -48,10 +48,13 @@ public class WorldEngine {
         for(CreatureEngine creature : creatureEngines){
             creature.tickTackCreature();
             actionList.add(creature.getAction(resourceList));
+
         }
         for(Action action: chooseActionOrder(actionList).values()){
             action.execute();
         }
+        System.out.println("########################################");
+
     }
 
 

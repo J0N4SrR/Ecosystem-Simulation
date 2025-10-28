@@ -37,8 +37,14 @@ public class Coordinate {
         return (Math.sqrt((Math.pow(deltaX(other), 2) + Math.pow(deltaY(other), 2))));
     }
 
-
-
-
-
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("(");
+        sb.append(getX());
+        sb.append(", ");
+        sb.append(getY());
+        sb.append(")");
+        return sb.toString();
+    }
 }

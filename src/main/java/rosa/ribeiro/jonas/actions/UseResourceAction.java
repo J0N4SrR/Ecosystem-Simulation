@@ -10,8 +10,8 @@ public class UseResourceAction implements Action{
     private ActionType actionType;
     private CreatureEngine creatureEngine;
 
-    public UseResourceAction(Coordinate coordinate, int priority, CreatureEngine creatureEngine) {
-        this.coordinate = coordinate;
+    public UseResourceAction(Coordinate resourceCoordinate, int priority, CreatureEngine creatureEngine) {
+        this.coordinate = resourceCoordinate;
         this.priority = priority;
         this.actionType = ActionType.USE_RESOURCE;
         this.creatureEngine = creatureEngine;
@@ -35,7 +35,9 @@ public class UseResourceAction implements Action{
     @Override
     public void execute() {
         if(creatureEngine.move(coordinate)){
-        creatureEngine.drinkWater();
+            creatureEngine.drinkWater();
+            System.out.println("\n" + creatureEngine.getCreature().getNickname() + "  Foi beber agua na posição: " + getCoordinate());
+
         }
     }
 }

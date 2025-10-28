@@ -4,35 +4,34 @@ import rosa.ribeiro.jonas.Coordinate;
 import rosa.ribeiro.jonas.CreatureEngine;
 
 public class RestAction implements Action {
-    private Coordinate coordinate;
-    private int priority;
     private ActionType actionType;
     private CreatureEngine creatureEngine;
 
-    public RestAction(Coordinate coordinate, int priority, ActionType actionType, CreatureEngine creatureEngine) {
-        this.coordinate = coordinate;
-        this.priority = priority;
-        this.actionType = actionType;
+    public RestAction(CreatureEngine creatureEngine) {
+
+        this.actionType = ActionType.REST;
         this.creatureEngine = creatureEngine;
     }
 
     @Override
     public Coordinate getCoordinate() {
-        return null;
+        return creatureEngine.getCreature().getPosition();
     }
 
     @Override
     public int getActionPriority() {
-        return 0;
+        return creatureEngine.getCreature().getStamina();
     }
 
     @Override
     public ActionType getActionType() {
-        return null;
+        return actionType;
     }
 
     @Override
     public void execute() {
+        creatureEngine.rest();
+        System.out.println("\n " + creatureEngine.getCreature().getNickname() + " descansou na posição: " + getCoordinate());
 
     }
 }
