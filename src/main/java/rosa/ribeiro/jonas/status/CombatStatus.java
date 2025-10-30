@@ -17,27 +17,5 @@ public class CombatStatus {
         this.evasion = evasion;
     }
 
-    public int getAttackPower() {
-        return attackPower;
-    }
 
-    public int getDefensePower() {
-        return defensePower;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public int getMagicPower() {
-        return magicPower;
-    }
-
-    public int getAccuracy() {
-        return accuracy;
-    }
-
-    public int getEvasion() {
-        return evasion;
-    }
 }

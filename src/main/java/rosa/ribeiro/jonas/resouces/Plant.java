@@ -1,12 +1,16 @@
 package rosa.ribeiro.jonas.resouces;
 
+import rosa.ribeiro.jonas.status.LifeStatus;
 import rosa.ribeiro.jonas.world.Coordinate;
 
 public class Plant implements Resource{
     private Coordinate position;
     private ResourceType resourceType;
+    private String name = null;
 
-    public Plant(Coordinate position) {
+
+    public Plant(String name, Coordinate position) {
+        this.name = name;
         this.position = position;
         this.resourceType =ResourceType.PLANT;
     }
@@ -19,5 +23,15 @@ public class Plant implements Resource{
     @Override
     public ResourceType getResourceType() {
         return resourceType;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public int getDecayTime() {
+        return 0;
     }
 }

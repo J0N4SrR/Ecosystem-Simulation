@@ -13,14 +13,12 @@ public class TimeController implements Runnable{
     @Override
     public void run() {
 
-        while(count < 10){
+        while(count < 40){
             count++;
             worldEngine.tickTack();
             try {
                 Thread.sleep(1000);
-                if(count == 9){
-                    System.out.println(worldEngine.lifeManagers.toString());
-                }
+
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

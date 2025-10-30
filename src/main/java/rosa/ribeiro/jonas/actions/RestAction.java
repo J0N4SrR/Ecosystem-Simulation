@@ -15,7 +15,7 @@ public class RestAction implements Action {
 
     @Override
     public Coordinate getCoordinate() {
-        return lifeManager.getCreature().getLifeManager().getPosition();
+        return lifeManager.getCreature().getPosition();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class RestAction implements Action {
     @Override
     public void execute() {
         lifeManager.rest();
-        System.out.println("\n " + lifeManager.getCreature().getNickname() + " descansou na posição: " + getCoordinate());
+        System.out.println(lifeManager.getCreature().getNickname() + " descansou na posição: " + getCoordinate());
 
     }
 }

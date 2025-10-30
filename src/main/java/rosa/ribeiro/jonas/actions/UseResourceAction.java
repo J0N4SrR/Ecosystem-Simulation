@@ -1,20 +1,24 @@
 package rosa.ribeiro.jonas.actions;
 
 
+import rosa.ribeiro.jonas.resouces.Resource;
+import rosa.ribeiro.jonas.resouces.ResourceType;
 import rosa.ribeiro.jonas.world.Coordinate;
 import rosa.ribeiro.jonas.creatures.LifeManager;
 
-public class DrinkAction implements Action{
+public class UseResourceAction implements Action{
     private Coordinate coordinate;
     private int priority;
     private ActionType actionType;
     private LifeManager lifeManager;
+    private Resource resource;
 
-    public DrinkAction(Coordinate resourceCoordinate, int priority, LifeManager lifeManager) {
-        this.coordinate = resourceCoordinate;
-        this.priority = priority;
+    public UseResourceAction(Resource resource, LifeManager lifeManager) {
+        this.coordinate = resource.getPosition();
+        this.priority = lifeManager.priorityByResourceType(resource.getResourceType());
         this.actionType = ActionType.USE_RESOURCE;
         this.lifeManager = lifeManager;
+        this.resource = resource;
     }
 
     @Override
@@ -35,8 +39,8 @@ public class DrinkAction implements Action{
     @Override
     public void execute() {
         if(lifeManager.move(coordinate)){
-            lifeManager.drinkWater();
-            System.out.println("\n" + lifeManager.getCreature().getNickname() + "  Foi beber agua na posição: " + getCoordinate());
+            lifeManager.actionByResourceType(resource.getResourceType());
+            System.out.println(lifeManager.getCreature().getNickname() + "  foi ao " + resource.getName() +" - Posição: " + getCoordinate());
 
         }
     }

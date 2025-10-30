@@ -11,9 +11,8 @@ public class LifeStatus {
     private final int staminaMax;
     private int thirst;
     private final int thirstMax;
-    private Coordinate position;
 
-    public LifeStatus(int hp, int hungryMax, int staminaMax, int thirstMax, Coordinate position) {
+    public LifeStatus(int hp, int hungryMax, int staminaMax, int thirstMax) {
         this.hp = hp;
         this.hungry = 0;
         this.hungryMax = hungryMax;
@@ -21,9 +20,19 @@ public class LifeStatus {
         this.staminaMax = staminaMax;
         this.thirst = 0;
         this.thirstMax = thirstMax;
-        this.position = position;
     }
 
+    public int getHungryMax() {
+        return hungryMax;
+    }
+
+    public int getStaminaMax() {
+        return staminaMax;
+    }
+
+    public int getThirstMax() {
+        return thirstMax;
+    }
 
     public int getHp() {
         return hp;
@@ -43,7 +52,6 @@ public class LifeStatus {
 
     public int getStamina() { return stamina;}
 
-    public int getStaminaRatio() { return (int)((stamina * 100)/staminaMax) ;}
 
     public void setStamina(int stamina) {
         this.stamina = Math.min(stamina, staminaMax);
@@ -53,19 +61,11 @@ public class LifeStatus {
         return thirst;
     }
 
-    public int getThirstDangerZone() { return (int) (thirstMax * 0.6); }
-
     public void setThirst(int thirst) {
         this.thirst = thirst;
     }
 
-    public Coordinate getPosition() {
-        return position;
-    }
 
-    public void setPosition(Coordinate position) {
-        this.position = position;
-    }
 
     @Override
     public String toString() {
@@ -74,7 +74,6 @@ public class LifeStatus {
               • Fome: %d
               • Stamina: %d
               • Sede: %d
-              • Posição: %s
-            """, hp, hungry, stamina, thirst, position);
+            """, hp, hungry, stamina, thirst);
     }
 }

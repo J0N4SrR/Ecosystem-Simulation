@@ -2,15 +2,19 @@ package rosa.ribeiro.jonas.resouces;
 
 import rosa.ribeiro.jonas.world.Coordinate;
 
-public class Water implements Resource{
-    private Coordinate position;
-    private ResourceType resourceType;
-    private String name = null;
+public class Meat implements Resource {
+    private final String name;
+    private final Coordinate position;
+    private final ResourceType resourceType;
+    private final int nutritionValue;
+    private final int decayTime;
 
-    public Water(String name, Coordinate position) {
+    public Meat(String name, Coordinate position, int nutritionValue, int decayTime) {
         this.name = name;
         this.position = position;
-        this.resourceType = ResourceType.WATER;
+        this.resourceType = ResourceType.MEAT;
+        this.nutritionValue = nutritionValue;
+        this.decayTime = decayTime;
     }
 
     @Override
@@ -32,4 +36,7 @@ public class Water implements Resource{
     public int getDecayTime() {
         return 0;
     }
+
+
+
 }

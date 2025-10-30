@@ -33,10 +33,10 @@ public class MoveAction implements Action{
 
     @Override
     public void execute() {
-        if(lifeManager.getCreature().getLifeManager().getPosition().equals(getCoordinate())){
-            System.out.println("\n " + lifeManager.getCreature().getNickname() + " está cansado e não se moveu." + getCoordinate());
+        if(lifeManager.getCreature().getPosition().equals(getCoordinate())){
+            System.out.println(lifeManager.getCreature().getNickname() + " está cansado e não se moveu." + getCoordinate());
         } else {
-            System.out.println("\n " + lifeManager.getCreature().getNickname() + " moveu-se para " + getCoordinate());
+            System.out.println(lifeManager.getCreature().getNickname() + " moveu-se para " + getCoordinate());
             lifeManager.move(getCoordinate());
         }
     }

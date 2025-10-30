@@ -1,8 +1,11 @@
 package rosa.ribeiro.jonas.world;
 
 import rosa.ribeiro.jonas.actions.Action;
+import rosa.ribeiro.jonas.creatures.Creature;
 import rosa.ribeiro.jonas.creatures.LifeManager;
+import rosa.ribeiro.jonas.resouces.Meat;
 import rosa.ribeiro.jonas.resouces.Resource;
+import rosa.ribeiro.jonas.resouces.Water;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,15 +20,6 @@ public class WorldEngine {
         this.resourceList = resourceList;
     }
 
-    private int countAliveCreatures(){
-        int countAliveCreature = 0;
-        for(LifeManager creature: lifeManagers){
-            if(creature.isAlive()){
-                countAliveCreature++;
-            }
-        }
-        return countAliveCreature;
-    }
 
     public HashMap<Coordinate, Action>  chooseActionOrder(List<Action> actionList){
         HashMap<Coordinate, Action> winners = new HashMap<>();
@@ -43,18 +37,33 @@ public class WorldEngine {
         return winners;
     }
 
-    public void tickTack(){
+    public void tickTack() {
         List<Action> actionList = new ArrayList<>();
-        int alive = countAliveCreatures();
-        for(LifeManager creature : lifeManagers){
+        int alive = 0;
+        LifeManager creatureRem = null;
+        for (LifeManager creature : lifeManagers) {
             creature.tickTackCreature();
-            actionList.add(creature.getAction(resourceList));
+            if (creature.isAlive()) {
+                alive++;
+            } else {
+                int x = creature.getCreature().getPosition().getX();
+                int y = creature.getCreature().getPosition().getY();
+                String name = "meat" + creature.getCreature().getNickname();
+                Resource meat = new Meat("name", new Coordinate(x, y), (creature.getCreature().getLifeManager().getHp()), 3);
+                resourceList.add(meat);
+                creatureRem = creature;
 
+            }
+            actionList.add(creature.getAction(resourceList));
         }
-        for(Action action: chooseActionOrder(actionList).values()){
+        lifeManagers.remove(creatureRem);
+
+        for (Action action : chooseActionOrder(actionList).values()) {
             action.execute();
         }
+        System.out.println(" CRIATURAS VIVAS: " + alive);
         System.out.println("########################################");
+        System.out.println(lifeManagers);
 
     }
 
