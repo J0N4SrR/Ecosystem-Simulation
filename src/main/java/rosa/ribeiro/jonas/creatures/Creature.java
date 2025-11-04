@@ -8,21 +8,29 @@ public class Creature {
     private final String nickname;
     private CreatureCategory creatureCategory;
     private LifeStatus lifeStatus;
+    private CombatStatus combatStatus;
     private Coordinate position;
 
 
-    public Creature(String nickname, LifeStatus lifeStatus, CreatureCategory creatureCategory, Coordinate position) {
+    public Creature(String nickname, LifeStatus lifeStatus, CreatureCategory creatureCategory, Coordinate position, CombatStatus combatStatus) {
         this.lifeStatus = lifeStatus;
         this.nickname = nickname;
         this.creatureCategory =  creatureCategory;
         this.position = position;
+        this.combatStatus = combatStatus;
     }
 
+    public CreatureCategory getCreatureCategory() {
+        return creatureCategory;
+    }
 
-    public LifeStatus getLifeManager() {
+    public LifeStatus getLifeStatus() {
         return lifeStatus;
     }
 
+    public CombatStatus getCombatStatus() {
+        return combatStatus;
+    }
 
     public String getNickname() {
         return nickname;

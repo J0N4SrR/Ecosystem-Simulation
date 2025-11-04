@@ -5,6 +5,7 @@ import rosa.ribeiro.jonas.creatures.CreatureCategory;
 import rosa.ribeiro.jonas.creatures.LifeManager;
 import rosa.ribeiro.jonas.resouces.Resource;
 import rosa.ribeiro.jonas.resouces.Water;
+import rosa.ribeiro.jonas.status.CombatStatus;
 import rosa.ribeiro.jonas.status.LifeStatus;
 import rosa.ribeiro.jonas.world.Coordinate;
 import rosa.ribeiro.jonas.world.TimeController;
@@ -23,15 +24,80 @@ public class Main {
         final List<Resource> resources = new ArrayList<>();
 
         // Testando
-        Creature grifoAlpha = new Creature("Grifo Alpha", new LifeStatus(15, 10, 10,15), CreatureCategory.HUNTER, new Coordinate(0, 0));
-        Creature grifoBeta  = new Creature("Grifo Beta", new LifeStatus(12,10, 15, 10),CreatureCategory.HUNTER, new Coordinate(2, 1));
-        Creature lobo       = new Creature("Lobo", new LifeStatus(10, 15, 10, 6), CreatureCategory.HUNTER, new Coordinate(5, -2));
-        Creature coelho     = new Creature("Coelho", new LifeStatus(4, 15, 6, 10),CreatureCategory.PREY, new Coordinate(-3, 1));
-        Creature coelho1     = new Creature("Coelho01", new LifeStatus(4, 15, 6, 10),CreatureCategory.PREY, new Coordinate(-3, 1));
-        Creature coelho2     = new Creature("Coelho02", new LifeStatus(1, 4, 6, 10),CreatureCategory.PREY, new Coordinate(-3, 1));
-        Creature coelho3    = new Creature("Coelho03", new LifeStatus(1, 5, 6, 10),CreatureCategory.PREY, new Coordinate(-3, 1));
-        Creature coelho4     = new Creature("Coelho04", new LifeStatus(4, 5, 6, 10),CreatureCategory.PREY, new Coordinate(-3, 1));
-        Creature cervo      = new Creature("Cervo", new LifeStatus(8,10, 6, 8), CreatureCategory.PREY,  new Coordinate(1, -4));
+        // --- HUNTERS ---
+        Creature grifoAlpha = new Creature(
+                "Grifo Alpha",
+                new LifeStatus(15, 10, 10, 15),
+                CreatureCategory.HUNTER,
+                new Coordinate(0, 0),
+                new CombatStatus(20, 12, 8, 14, 85, 10) // ataque, defesa, magia, velocidade, precisão, evasão
+        );
+
+        Creature grifoBeta = new Creature(
+                "Grifo Beta",
+                new LifeStatus(12, 10, 15, 10),
+                CreatureCategory.HUNTER,
+                new Coordinate(2, 1),
+                new CombatStatus(18, 10, 10, 12, 80, 12)
+        );
+
+        Creature lobo = new Creature(
+                "Lobo",
+                new LifeStatus(10, 15, 10, 6),
+                CreatureCategory.HUNTER,
+                new Coordinate(5, -2),
+                new CombatStatus(16, 9, 5, 15, 78, 14)
+        );
+
+// --- PREYS ---
+        Creature coelho = new Creature(
+                "Coelho",
+                new LifeStatus(4, 15, 6, 10),
+                CreatureCategory.PREY,
+                new Coordinate(-3, 1),
+                new CombatStatus(6, 4, 3, 18, 70, 22)
+        );
+
+        Creature coelho1 = new Creature(
+                "Coelho01",
+                new LifeStatus(4, 15, 6, 10),
+                CreatureCategory.PREY,
+                new Coordinate(-3, 1),
+                new CombatStatus(6, 4, 3, 18, 70, 22)
+        );
+
+        Creature coelho2 = new Creature(
+                "Coelho02",
+                new LifeStatus(1, 4, 6, 10),
+                CreatureCategory.PREY,
+                new Coordinate(-3, 1),
+                new CombatStatus(5, 3, 2, 17, 68, 24)
+        );
+
+        Creature coelho3 = new Creature(
+                "Coelho03",
+                new LifeStatus(1, 5, 6, 10),
+                CreatureCategory.PREY,
+                new Coordinate(-3, 1),
+                new CombatStatus(5, 3, 2, 17, 68, 24)
+        );
+
+        Creature coelho4 = new Creature(
+                "Coelho04",
+                new LifeStatus(4, 5, 6, 10),
+                CreatureCategory.PREY,
+                new Coordinate(-3, 1),
+                new CombatStatus(5, 3, 2, 17, 68, 24)
+        );
+
+        Creature cervo = new Creature(
+                "Cervo",
+                new LifeStatus(8, 10, 6, 8),
+                CreatureCategory.PREY,
+                new Coordinate(1, -4),
+                new CombatStatus(10, 8, 4, 12, 75, 16)
+        );
+
 
         LifeManager engineGrifoAlpha = new LifeManager(grifoAlpha);
         LifeManager engineGrifoBeta  = new LifeManager(grifoBeta);

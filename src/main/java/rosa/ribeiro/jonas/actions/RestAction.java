@@ -20,7 +20,11 @@ public class RestAction implements Action {
 
     @Override
     public int getActionPriority() {
-        return lifeManager.getCreature().getLifeManager().getStamina();
+        int maxStamina = lifeManager.getCreature().getLifeStatus().getStaminaMax();
+        int currentStamina = lifeManager.getCreature().getLifeStatus().getStamina();
+        int basePriority = 100;
+
+        return (maxStamina - currentStamina) * basePriority / maxStamina;
     }
 
     @Override

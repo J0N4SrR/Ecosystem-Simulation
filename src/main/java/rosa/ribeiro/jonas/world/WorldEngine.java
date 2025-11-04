@@ -1,11 +1,9 @@
 package rosa.ribeiro.jonas.world;
 
 import rosa.ribeiro.jonas.actions.Action;
-import rosa.ribeiro.jonas.creatures.Creature;
 import rosa.ribeiro.jonas.creatures.LifeManager;
 import rosa.ribeiro.jonas.resouces.Meat;
 import rosa.ribeiro.jonas.resouces.Resource;
-import rosa.ribeiro.jonas.resouces.Water;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +38,7 @@ public class WorldEngine {
     public void tickTack() {
         List<Action> actionList = new ArrayList<>();
         int alive = 0;
-        LifeManager creatureRem = null;
+        List<LifeManager> creatureRem = new ArrayList<>();
         for (LifeManager creature : lifeManagers) {
             creature.tickTackCreature();
             if (creature.isAlive()) {
@@ -49,14 +47,13 @@ public class WorldEngine {
                 int x = creature.getCreature().getPosition().getX();
                 int y = creature.getCreature().getPosition().getY();
                 String name = "meat" + creature.getCreature().getNickname();
-                Resource meat = new Meat("name", new Coordinate(x, y), (creature.getCreature().getLifeManager().getHp()), 3);
+                Resource meat = new Meat("name", new Coordinate(x, y), (creature.getCreature().getLifeStatus().getHp()), 3);
                 resourceList.add(meat);
-                creatureRem = creature;
-
+                creatureRem.add(creature);
             }
             actionList.add(creature.getAction(resourceList));
         }
-        lifeManagers.remove(creatureRem);
+        lifeManagers.removeAll(creatureRem);
 
         for (Action action : chooseActionOrder(actionList).values()) {
             action.execute();

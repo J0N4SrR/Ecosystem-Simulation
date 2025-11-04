@@ -23,7 +23,15 @@ public class MoveAction implements Action{
 
     @Override
     public int getActionPriority() {
-        return lifeManager.getCreature().getLifeManager().getStamina();
+        int basePriority = 10;
+        int maxStamina = lifeManager.getCreature().getLifeStatus().getStaminaMax();
+        int currentStamina = lifeManager.getCreature().getLifeStatus().getStamina();
+        if (maxStamina > 0 && (currentStamina * 100 / maxStamina) > 90) {
+            return basePriority + 5;
+        }
+
+        // A prioridade de passear é sempre baixa.
+        return basePriority;
     }
 
     @Override

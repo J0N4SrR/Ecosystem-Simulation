@@ -1,8 +1,8 @@
 package rosa.ribeiro.jonas.world;
 
 public class Coordinate {
-    private  int x;
-    private  int y;
+    private final int x;
+    private final int y;
 
     public Coordinate(int x, int y) {
         this.x = x;
@@ -13,16 +13,8 @@ public class Coordinate {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public int deltaX(Coordinate other) {
@@ -39,12 +31,10 @@ public class Coordinate {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("(");
-        sb.append(getX());
-        sb.append(", ");
-        sb.append(getY());
-        sb.append(")");
-        return sb.toString();
+        return "(" +
+                getX() +
+                ", " +
+                getY() +
+                ")";
     }
 }

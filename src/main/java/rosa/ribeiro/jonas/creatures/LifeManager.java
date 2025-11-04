@@ -1,10 +1,7 @@
 package rosa.ribeiro.jonas.creatures;
 
+import rosa.ribeiro.jonas.actions.*;
 import rosa.ribeiro.jonas.world.Coordinate;
-import rosa.ribeiro.jonas.actions.Action;
-import rosa.ribeiro.jonas.actions.MoveAction;
-import rosa.ribeiro.jonas.actions.RestAction;
-import rosa.ribeiro.jonas.actions.UseResourceAction;
 import rosa.ribeiro.jonas.resouces.Resource;
 import rosa.ribeiro.jonas.resouces.ResourceType;
 
@@ -28,35 +25,24 @@ public class LifeManager {
     }
 
     public boolean isAlive() {
-        return this.creature.getLifeManager().getHp() > 0;
+        return this.creature.getLifeStatus().getHp() > 0;
     }
 
     public void tickTackCreature(){
-        creature.getLifeManager().setThirst(creature.getLifeManager().getThirst() + 1);
-        creature.getLifeManager().setStamina(creature.getLifeManager().getStamina() - 1);
-        creature.getLifeManager().setHungry(creature.getLifeManager().getHungry() + 1);
-        if(creature.getLifeManager().getHungry() == creature.getLifeManager().getHungryMax()){
-            creature.getLifeManager().setHp(creature.getLifeManager().getHp() - 1);
+        creature.getLifeStatus().setThirst(creature.getLifeStatus().getThirst() + 1);
+        creature.getLifeStatus().setStamina(creature.getLifeStatus().getStamina() - 1);
+        creature.getLifeStatus().setHungry(creature.getLifeStatus().getHungry() + 1);
+        if(creature.getLifeStatus().getHungry() == creature.getLifeStatus().getHungryMax()){
+            creature.getLifeStatus().setHp(creature.getLifeStatus().getHp() - 1);
         }
     }
 
-    private int getWaterDuration(){
-        int duration = 0;
-            for(int i = 1; i <= creature.getLifeManager().getThirst(); i++){
-                duration++;
-            }
-        return duration;
-    }
-
-    private int drink(){
-        int time = getWaterDuration();
-        creature.getLifeManager().setThirst(0);
-        return time;
-
+    private void drink(){
+        creature.getLifeStatus().setThirst(0);
     }
 
     private void eat(){
-        creature.getLifeManager().setHungry(0);
+        creature.getLifeStatus().setHungry(0);
     }
 
     public void actionByResourceType(ResourceType resourceType){
@@ -64,6 +50,18 @@ public class LifeManager {
             case WATER -> drink();
             case MEAT, PLANT -> eat();
         }
+    }
+
+    public ResourceType seekResourceByCreatureType(){
+        switch (creature.getCreatureCategory()){
+            case HUNTER -> {
+                return ResourceType.MEAT;
+            }
+            case PREY -> {
+                return ResourceType.PLANT;
+            }
+        }
+        return null;
     }
 
 
@@ -82,34 +80,42 @@ public class LifeManager {
     }
 
     public boolean hasEnergy(Coordinate newPosition){
-        return creature.getLifeManager().getStamina() >= creature.getPosition().distanceTo(newPosition);
+        return creature.getLifeStatus().getStamina() >= creature.getPosition().distanceTo(newPosition);
     }
 
     public boolean move(Coordinate newPosition){
         if(hasEnergy(newPosition)){
             creature.setPosition(newPosition);
-            creature.getLifeManager().setStamina(Math.subtractExact(creature.getLifeManager().getStamina(), ((int)creature.getPosition().distanceTo(newPosition))));
+            creature.getLifeStatus().setStamina(Math.subtractExact(creature.getLifeStatus().getStamina(), ((int)creature.getPosition().distanceTo(newPosition))));
             return true;
         }
         return false;
     }
 
     public void rest(){
-        creature.getLifeManager().setStamina((creature.getLifeManager().getStamina() + 4));
+        creature.getLifeStatus().setStamina((creature.getLifeStatus().getStaminaMax()));
     }
 
-    private Action createUseResourceAction(List<Resource> resources){
-        List<Integer> list = new ArrayList<>();
+    private Action createUseResourceAction(List<Resource> resources, ResourceType resourceType){
+        Resource bestResource = null;
+        double minDistance = Double.MAX_VALUE;
         for(Resource resource: resources){
-            list.add((int)creature.getPosition().distanceTo(resource.getPosition()));
+            if(resource.getResourceType().equals(resourceType)){
+                double distance = creature.getPosition().distanceTo(resource.getPosition());
+                if (distance < minDistance){
+                    minDistance = distance;
+                    bestResource = resource;
+                }
+            }
         }
-        int index = list.indexOf(Collections.min(list));
-        return new UseResourceAction(resources.get(index), this);
+        if(bestResource != null) {
+            return new UseResourceAction(bestResource, this);
+        }
 
+        return new WaitAction(this);
     }
 
     private Action createMoveAction(){
-
        return new MoveAction(this);
     }
 
@@ -121,22 +127,31 @@ public class LifeManager {
 
     public int priorityByResourceType(ResourceType resourceType) {
         return switch (resourceType) {
-            case WATER -> creature.getLifeManager().getThirst();
-            case PLANT, MEAT -> creature.getLifeManager().getHungry();
-            default -> -1;
+            case WATER -> {
+                int max = creature.getLifeStatus().getThirstMax();
+                int current = creature.getLifeStatus().getThirst();
+                yield (max == 0) ? 0 : (current * 100) / max;
+            }
+            case PLANT, MEAT -> {
+                int max = creature.getLifeStatus().getHungryMax();
+                int current = creature.getLifeStatus().getHungry();
+                yield (max == 0) ? 0 : (current * 100) / max;
+
+            }
+            default -> 0;
         };
     }
 
     //adicionar mais ações e escolher qual usar
     public Action getAction(List<Resource> resources){
-        if(((getCreature().getLifeManager().getStamina())*100/getCreature().getLifeManager().getStaminaMax()) <= 25){
+        if(getCreature().getLifeStatus().getStamina()< (int)(((getCreature().getLifeStatus().getStaminaMax())*0.25))){
             return createRestAction();
         }
-        if(getCreature().getLifeManager().getThirst() >= (getCreature().getLifeManager().getThirstMax())/2){
-            return createUseResourceAction(resources);
+        if(getCreature().getLifeStatus().getThirst() >= (getCreature().getLifeStatus().getThirstMax())/2){
+            return createUseResourceAction(resources, ResourceType.WATER);
         }
-        if(getCreature().getLifeManager().getHungry() >= (int)(getCreature().getLifeManager().getHungryMax() * 0.7)){
-            return createUseResourceAction(resources);
+        if(getCreature().getLifeStatus().getHungry() >= (int)(getCreature().getLifeStatus().getHungryMax() * 0.7)){
+            return createUseResourceAction(resources, seekResourceByCreatureType());
         }
 
 
@@ -154,7 +169,7 @@ public class LifeManager {
               • Stamina: %d
               • Sede: %d
               • Posição: %s
-            """, creature.getNickname(), creature.getLifeManager().getHp(), creature.getLifeManager().getHungry(), creature.getLifeManager().getStamina(), creature.getLifeManager().getThirst(), creature.getPosition());
+            """, creature.getNickname(), creature.getLifeStatus().getHp(), creature.getLifeStatus().getHungry(), creature.getLifeStatus().getStamina(), creature.getLifeStatus().getThirst(), creature.getPosition());
     }
 
 }

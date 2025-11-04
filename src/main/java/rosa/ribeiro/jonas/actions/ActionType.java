@@ -5,7 +5,8 @@ public enum ActionType {
     USE_RESOURCE("use resource"),
     MOVE("move"),
     REST("rest"),
-    HUNT("HUNT");
+    HUNT("hunt"),
+    WAIT("wait");
 
     private final String description;
 
